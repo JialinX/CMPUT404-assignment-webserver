@@ -79,8 +79,9 @@ class MyWebServer(socketserver.BaseRequestHandler):
             host_port = "http://127.0.0.1:8080"
             location = "Location: " + host_port + self.path + "/"
             content_type = "Content-Type: text/plain"
-            response = "{} {}\r\n{}\r\n{}\r\n\r\n{}\r\n".format(
-                self.http, self.status_301, location, content_type, self.status_301)
+            content_length = "Content-Length: "+str(len(self.status_301))
+            response = "{} {}\r\n{}\r\n{}\r\n{}\r\n\r\n{}\r\n".format(
+                self.http, self.status_301, location, content_type, content_length, self.status_301)
 
             self.request.sendall(bytearray(response,'utf-8'))
 
@@ -89,16 +90,18 @@ class MyWebServer(socketserver.BaseRequestHandler):
 
     def send_404_response(self):
         content_type = "Content-Type: text/plain"
-        response = "{} {}\r\n{}\r\n\r\n{}\r\n".format(
-                self.http, self.status_404, content_type, self.status_404)
+        content_length = "Content-Length: "+str(len(self.status_404))
+        response = "{} {}\r\n{}\r\n{}\r\n\r\n{}\r\n".format(
+                self.http, self.status_404, content_type, content_length, self.status_404)
 
         self.request.sendall(bytearray(response,'utf-8'))
 
     def send_405_response(self):
         
         content_type = "Content-Type: text/plain"
-        response = "{} {}\r\n{}\r\n\r\n{}\r\n".format(
-                self.http, self.status_405, content_type, self.status_405)
+        content_length = "Content-Length: "+str(len(self.status_405))
+        response = "{} {}\r\n{}\r\n{}\r\n\r\n{}\r\n".format(
+                self.http, self.status_405, content_type, content_length, self.status_405)
 
         self.request.sendall(bytearray(response,'utf-8'))
 
